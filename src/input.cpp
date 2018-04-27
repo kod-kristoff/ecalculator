@@ -39,4 +39,11 @@ namespace ecal
         assert (_token == token_number);
         return atoi (_buf);
     }
+
+    int
+    input::token ()
+    const
+    {
+        return _token;
+    }
 } // namespace ecal

@@ -172,7 +172,7 @@ namespace kx
     template<class T>
     void
     stack_ff<T>::push (
-        value_type value
+        stack_ff<T>::value_type value
     )
     {
         assert (size () + 1 < capacity ());

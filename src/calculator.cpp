@@ -1,5 +1,6 @@
 #include "calculator.hpp"
 
+#include "input.hpp"
 #include "kx/write_ln.hpp"
 
 namespace ecal
@@ -31,7 +32,8 @@ namespace ecal
     }
     // Class calculator
     calculator::calculator ()
-        : _done (false)
+        :   _stack (100)
+        ,   _done (false)
     {
         kx::write_ln ("calculator created");
     }
@@ -54,7 +56,7 @@ namespace ecal
             }
             else
             {
-                _stack.push (input.number ());
+                _stack.push (input_.number ());
                 status = true;
             }
         }
