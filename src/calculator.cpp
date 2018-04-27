@@ -48,7 +48,7 @@ namespace ecal
         }
         else if (token == token_number)
         {
-            if (_stack.is_full ())
+            if (_stack.full ())
             {
                 kx::write_ln ("Stack is full");
             }
@@ -66,25 +66,27 @@ namespace ecal
                 ||  token == '/'
             );
 
-            if (_stack.is_empty ())
+            if (_stack.empty ())
             {
                 kx::write_ln ("Stack is empty");
             }
             else
             {
-                int num2 = _stack.pop ();
+                int num2 = _stack.top ();
+                _stack.pop ();
                 int num1;
 
                 // Special case, when only one number on the stack:
                 // use this number for both operands
 
-                if (_stack.is_empty ())
+                if (_stack.empty ())
                 {
                     num1 = num2;
                 }
                 else
                 {
-                    num1 = _stack.pop ();
+                    num1 = _stack.top ();
+                    _stack.pop ();
                 }
 
                 _stack.push (calculate (num1, num2, token));

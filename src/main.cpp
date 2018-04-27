@@ -3,7 +3,7 @@
 #include "calculator.hpp"
 #include "input.hpp"
 
-#include "kx/stack_seq.hpp"
+#include "kx/stack_ff.hpp"
 
 int
 main ()
@@ -18,11 +18,11 @@ main ()
         status = calc.execute (input_);
         if (status)
         {
-            for (kx::stack_seq seq (calc.get_stack());
+            for (auto seq = begin (calc.get_stack());
                 !seq.at_end ();
                 seq.advance ())
             {
-                std::cout << "    " << seq.get_num () << std::endl;
+                std::cout << "    " << seq.get () << std::endl;
             }
         }
     } while(status);
