@@ -21,7 +21,6 @@ namespace ecal
         /*const*/;
     private:
         stack_type  _stack;
-        bool        _done;
     };
 } // namespace ecal
 #endif // ECAL_CALCULATOR_HPP_

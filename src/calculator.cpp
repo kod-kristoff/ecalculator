@@ -33,7 +33,6 @@ namespace ecal
     // Class calculator
     calculator::calculator ()
         :   _stack (100)
-        ,   _done (false)
     {
         kx::write_ln ("calculator created");
     }
@@ -50,7 +49,7 @@ namespace ecal
         }
         else if (token == token_number)
         {
-            if (_stack.full ())
+            if (_stack.is_full ())
             {
                 kx::write_ln ("Stack is full");
             }
@@ -68,7 +67,7 @@ namespace ecal
                 ||  token == '/'
             );
 
-            if (_stack.empty ())
+            if (_stack.is_empty ())
             {
                 kx::write_ln ("Stack is empty");
             }
@@ -81,7 +80,7 @@ namespace ecal
                 // Special case, when only one number on the stack:
                 // use this number for both operands
 
-                if (_stack.empty ())
+                if (_stack.is_empty ())
                 {
                     num1 = num2;
                 }
@@ -101,7 +100,6 @@ namespace ecal
     calculator::stack_type const &
     calculator::get_stack () /*const*/
     {
-        _done = true;
         return _stack;
     }
 

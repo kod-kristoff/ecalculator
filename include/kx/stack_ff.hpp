@@ -1,6 +1,7 @@
 #ifndef KX_STACK_FF_HPP_INCLUDED_
 #   define KX_STACK_FF_HPP_INCLUDED_
 
+#include <iostream>
 #include <cassert>
 
 namespace kx
@@ -24,7 +25,7 @@ namespace kx
         // ===========================
         // lifecycle
         // ===========================
-        stack_ff (size_type capacity);
+        explicit stack_ff (size_type capacity);
         ~stack_ff ();
 
         // ===========================
@@ -36,8 +37,8 @@ namespace kx
         // ===========================
         // capacity
         // ===========================
-        bool            empty () const;
-        bool            full () const;
+        bool            is_empty () const;
+        bool            is_full () const;
         size_type       size ()  const;
         size_type       capacity ()  const;
 
@@ -47,11 +48,9 @@ namespace kx
         void push (value_type value);
         void pop ();
         void clear ();
-    private: // helpers
-        bool not_full () const;
     private: // data
         value_type *    _data;
-        size_type       _top;
+        size_type       _size;
         size_type       _capacity;
     };
 
@@ -98,7 +97,7 @@ namespace kx
         stack_ff<T>::size_type capacity
     )
         :   _data (nullptr)
-        ,   _top (0)
+        ,   _size (0)
         ,   _capacity (capacity)
     {
         assert (_capacity > 0);
@@ -118,8 +117,8 @@ namespace kx
     typename stack_ff<T>::reference
     stack_ff<T>::top ()
     {
-        assert (not_full ());
-        return _data [_top];
+        assert (_size > 0);
+        return _data [_size - 1];
     }
 
     template<class T>
@@ -127,8 +126,8 @@ namespace kx
     stack_ff<T>::top ()
     const
     {
-        assert (not_full ());
-        return _data [_top];
+        assert (_size > 0);
+        return _data [_size - 1];
     }
 
     // ===========================
@@ -136,18 +135,18 @@ namespace kx
     // ===========================
     template<class T>
     bool
-    stack_ff<T>::empty ()
+    stack_ff<T>::is_empty ()
     const
     {
-        return (0 == _top);
+        return (0 == _size);
     }
 
     template<class T>
     bool
-    stack_ff<T>::full ()
+    stack_ff<T>::is_full ()
     const
     {
-        return !not_full ();
+        return (_size == _capacity);
     }
 
     template<class T>
@@ -155,7 +154,7 @@ namespace kx
     stack_ff<T>::size ()
     const
     {
-        return _top;
+        return _size;
     }
 
     template<class T>
@@ -175,37 +174,30 @@ namespace kx
         stack_ff<T>::value_type value
     )
     {
-        assert (size () + 1 < capacity ());
-        ++_top;
-        _data [_top] = value;
+        assert (_size + 1 < _capacity);
+        _data [_size] = value;
+        ++_size;
     }
 
     template<class T>
     void
     stack_ff<T>::pop ()
     {
-        assert (size() > 0);
-        if (_top > 0)
-            --_top;
+        assert (_size > 0);
+        --_size;
     }
 
     template<class T>
     void
     stack_ff<T>::clear ()
     {
-        _top = 0;
+        _size = 0;
     }
 
     // ===========================
     // helpers
     // ===========================
-    template<class T>
-    bool
-    stack_ff<T>::not_full ()
-    const
-    {
-        return (_top < _capacity);
-    }
+
 
     // ===========================
     // stack_ff_range implementation
@@ -239,7 +231,7 @@ namespace kx
     stack_ff_range<T>::at_end ()
     const
     {
-        return _current == _stack._top;
+        return _current == _stack.size ();
     }
 
     template<class T>

@@ -1,8 +1,7 @@
 sources = [
   'main.cpp',
   'calculator.cpp',
-  'input.cpp',
-  'kx/stack_seq.cpp'
+  'input.cpp'
 ]
 
 executable(

@@ -12,4 +12,4 @@ add_global_arguments(
 inc = include_directories('include')
 
 subdir('src')
-#subdir('test')
+subdir('test')
