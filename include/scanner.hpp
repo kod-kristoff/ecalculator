@@ -7,9 +7,15 @@ namespace ecal
     {
         t_end,
         t_error,
-        t_number,
-        t_plus,
-        t_mult
+        t_number,   // literal number
+        t_plus,     // +
+        t_mult,     // *
+        t_minus,    // -
+        t_divide,   // /
+        t_l_paren,  // (
+        t_r_paren,  // )
+        t_assign,   // =
+        t_ident     // identifier (symbolic name)
     };
 
     class scanner
@@ -27,6 +33,9 @@ namespace ecal
         expr_token  accept ();
 
         double      number () const;
+        void        symbol_name (
+            char *  str_out,
+            int &   len);
     private:
         // =======================
         // helpers
@@ -37,6 +46,8 @@ namespace ecal
         int                 _look;
         expr_token          _token;
         double              _number;
+        int                 _symbol_len;
+        int                 _symbol;
     };
 } // namespace ecal
 # endif // KX_SCANNER_HPP_INCLUDED_

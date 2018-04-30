@@ -34,19 +34,51 @@ namespace ecal
             _token = t_mult;
             ++_look;
             break;
+        case '-':
+            _token = t_minus;
+            ++_look;
+            break;
+        case '/':
+            _token = t_divide;
+            break;
+        case '(':
+            _token = t_l_paren;
+            break;
+        case ')':
+            _token = t_r_paren;
+            break;
+        case '=':
+            _token = t_assign;
+            break;
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
+        case '.':
             _token = t_number;
-            _number = atoi (&_buf [_look]);
-            while (isdigit (_buf [_look]))
-                ++_look;
+            char * p;
+            _number = strtod (&_buf [_look], &p);
+            _look = p - _buf; // pointer subtraction
             break;
-            case '\0': // end of input
-                _token = t_end;
-                break;
-            default:
+        case '\0': // end of input
+            _token = t_end;
+            break;
+        default:
+            if (isalpha (_buf [_look]) || _buf [_look] == '_')
+            {
+                _token  = t_ident;
+                _symbol = _look;
+                int look; // initalized in the do loop
+                do {
+                    ++_look;
+                    look = _buf [_look];
+                } while (isalnum (look) || look == '_');
+
+                _symbol_len = _look - _symbol;
+                if (_symbol_len > max_sym_len)
+                    _symbol_len = max_sym_len;
+            }
+            else
                 _token = t_error;
-                break;
+            break;
         }
         return token ();
     }
@@ -57,6 +89,19 @@ namespace ecal
     {
         assert (_token == t_number);
         return _number;
+    }
+
+    void
+    scanner::symbol_name (
+        char *  str_out,
+        int &   len
+    )
+    {
+        assert (len >= max_sym_len);
+        assert (_symbol_len <= max_sym_len);
+        strncpy (str_out, &_buf [_symbol], _symbol_len);
+        str_out [_symbol_len] = 0;
+        len = _symbol_len;
     }
 
     // ============================
