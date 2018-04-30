@@ -26,6 +26,36 @@ namespace ecal
     parser::eval ()
     {
         kx::write_ln ("parser::eval");
-        return st_quit;
+        return parse ();
+        // return st_quit;
+    }
+
+    status
+    parser::parse ()
+    {
+        kx::write_ln ("parser::parse");
+        for (expr_token token = _scanner.token ();
+            token != t_end;
+            token = _scanner.accept ())
+        {
+            switch (token) {
+            case t_error:
+                kx::write_ln ("error");
+                return st_quit;
+            case t_number:
+                std::cout << "number: " << _scanner.number () << std::endl;
+                break;
+            case t_plus:
+                kx::write_ln ("plus");
+                break;
+            case t_mult:
+                kx::write_ln ("times");
+                break;
+            default:
+                kx::write_ln ("Error: bad token");
+                return st_quit;
+            }
+        }
+        return st_ok;
     }
 } // namespace ecal

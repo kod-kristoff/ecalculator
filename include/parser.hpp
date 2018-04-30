@@ -29,6 +29,7 @@ namespace ecal
         // api
         // =====================
         status eval ();
+        status parse ();
     private:
         scanner &       _scanner;
         symbol_table &  _sym_tab;
