@@ -1,5 +1,5 @@
 ecalculator_stack_sources = [
-  'main.cpp',
+  'main_stack_based_calculator.cpp',
   'calculator.cpp',
   'input.cpp'
 ]
