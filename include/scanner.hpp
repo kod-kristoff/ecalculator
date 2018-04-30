@@ -18,6 +18,8 @@ namespace ecal
         t_ident     // identifier (symbolic name)
     };
 
+    const int max_sym_len = 40;
+
     class scanner
     {
     public:

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <cstring>
 
 namespace ecal
 {
@@ -40,15 +41,19 @@ namespace ecal
             break;
         case '/':
             _token = t_divide;
+            ++_look;
             break;
         case '(':
             _token = t_l_paren;
+            ++_look;
             break;
         case ')':
             _token = t_r_paren;
+            ++_look;
             break;
         case '=':
             _token = t_assign;
+            ++_look;
             break;
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
