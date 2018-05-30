@@ -1,7 +1,7 @@
 #ifndef ECAL_CALCULATOR_HPP_
 #   define ECAL_CALCULATOR_HPP_
 
-#include "kx/stack_ff.hpp"
+#include "kx/container/stack.hpp"
 #include "input_fwd.hpp"
 
 namespace ecal
@@ -9,7 +9,7 @@ namespace ecal
     class calculator
     {
     public: // Member types
-        typedef kx::stack_ff<int>   stack_type;
+        typedef kx::stack_fixed_rt<int>   stack_type;
     public:
         calculator ();
 
