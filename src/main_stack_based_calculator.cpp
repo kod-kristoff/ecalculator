@@ -3,7 +3,7 @@
 #include "calculator.hpp"
 #include "input.hpp"
 
-#include "kx/stack_ff.hpp"
+#include "kx/container/stack.hpp"
 
 int
 main ()

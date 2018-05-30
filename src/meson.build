@@ -7,7 +7,10 @@ ecalculator_stack_sources = [
 executable(
   'ecalculator-stack',
   ecalculator_stack_sources,
-  include_directories : inc
+  include_directories : [
+    inc,
+    kx_container_includes
+  ]
 
 )
 
@@ -21,5 +24,8 @@ ecalculator_expr_sources = [
 executable(
   'expr-calculator',
   ecalculator_expr_sources,
-  include_directories : inc
+  include_directories : [
+    inc,
+    kx_container_includes
+  ]
 )

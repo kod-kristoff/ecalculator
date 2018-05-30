@@ -1,6 +1,5 @@
 test_sources = [
-  'test_main.cpp',
-  'kx/container/stack_ff_test.cpp'
+  'test_main.cpp'
 ]
 
 catch_dep = dependency('catch')

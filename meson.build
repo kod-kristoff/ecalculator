@@ -9,7 +9,9 @@ add_global_arguments(
     '-std=c++17', language : 'cpp'
 )
 
-inc = include_directories('include')
-
+inc                   = include_directories('include')
+kx_container_includes = include_directories(
+  'externals/kx-container/include')
+  
 subdir('src')
 subdir('test')
